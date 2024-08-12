@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root{
+            --primary-color : black;
+            --primary-background-color : aliceblue;
+            --secondary-color : rgb(101, 101, 101);
+            --secondary-background-color : azure;
+            --margin-width : 20px;
+            --primary-border : 2px solid black
+        }
+        .dark{
+            --primary-color : rgb(255, 255, 255);
+            --primary-background-color : rgb(58, 58, 58);
+            --secondary-color : rgb(175, 175, 175);
+            --secondary-background-color : rgb(96, 96, 96);
+            --primary-border : 2px solid rgb(215, 215, 215);
+        }
+        body{
+            text-align: center;
+            background-color: var(--primary-background-color);
+        }
+
+        #heading{
+            color: var(--primary-color);
+        }
+
+        .box{
+            background-color: var(--secondary-background-color);
+            color: var(--secondary-color);
+            padding: var(--margin-width);
+            margin: var(--margin-width);
+            border: var(--primary-border);
+            border-radius: var(--margin-width);
+        }
+
+    </style>
+</head>
+<body >
+    <button id="theme">Switch Theme</button>
+    <h1 id="heading">Tourist Places</h1>
+    <div class="box">
+        <h3>Hills</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis ea doloremque at alias ducimus tempore ipsa iste sit dicta dolore!</p>
+    </div>
+    <div class="box">
+        <h3>Waterfalls</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis ea doloremque at alias ducimus tempore ipsa iste sit dicta dolore!</p>
+    </div>
+    <div class="box">
+        <h3>Lakes</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis ea doloremque at alias ducimus tempore ipsa iste sit dicta dolore!</p>
+    </div>
+    <script>
+        document.getElementById("theme").addEventListener("click",function(){
+            document.body.className = "dark"
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: cadetblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        /* translate , rotate , scale , skew */
+        #container{
+            width: 300px;
+            height: 300px;
+            border: 2px solid rgb(255, 244, 223);
+            border-radius: 50%;
+            animation: spinner 4s linear infinite;
+            /* background-color: cadetblue; */
+            
+            /* transform: skew(30deg); */
+        }
+
+        /* #container:hover #box{
+            transform: translate(300px,300px);
+        } */
+
+        #box{
+            width: 100px;
+            height: 100px;
+            background-color: antiquewhite;
+            border-radius: 50%;
+            
+        }
+
+        #container:hover{
+            /* transform: scale(1.01);
+            box-shadow: 1px 1px 5px 1px gray; */
+            /* background-color:chocolate;  */
+            /* border-radius: 50%; */
+            /* border: 2px solid black; */
+        }
+
+        @keyframes spinner {
+            from{
+                transform: rotate(0deg);
+            }
+            to{
+                transform: rotate(360deg);
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="box"></div>
+    </div>
+</body>
+</html>

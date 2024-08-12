@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            height: 80vh;
+            display: grid;
+            grid-template-columns: repeat(3 , 1fr);
+            gap: 10px;
+            /* justify-content: center; */
+            /* align-items: flex-start; */
+            /* grid-template-rows: 1fr  1fr; */
+            grid-template-areas: "hdr hdr hdr hdr"
+                                 "sbr main main main"
+                                 "sbr main main main"
+                                 "ftr ftr ftr ftr";
+        }
+        .box{
+            background-color: cornflowerblue;
+            border: 1px solid black;
+        }
+        #box-1{
+            /* grid-column: 1 / span 3 */
+            grid-area: hdr;
+        }
+
+        #box-2{
+            grid-area: sbr;
+        }
+
+        #box-3{
+            grid-area: main;
+        }
+
+        #box-4{
+            grid-area: ftr;
+        }
+        /* #box-3{
+            grid-row-start: 2;
+            grid-row-end: 6;
+        } */
+
+        #google:link{
+            /* color: red!important; */
+            /* background-color: black; */
+        }
+
+        /* #google:active{
+            color: black;
+            border: 1px solid green;
+            background-color: azure;
+        } */
+
+        /* #shubham:visited{
+            color: aquamarine;
+        } */
+
+        #google:hover{
+            background-color: black;
+            color: burlywood;
+            font-size: 40px;
+        }
+
+        #google:visited{
+            /* color: red; */
+            /* background-color: black; */
+        }
+    </style>
+</head>
+<body>
+    <!-- <div class="container">
+        <div class="box" id="box-1">box-1</div>
+        <div class="box" id="box-2">box-2</div>
+        <div class="box" id="box-3">box-3</div>
+        <div class="box" id="box-4">box-4</div>
+        <div class="box" id="box-5">box-5</div>
+        <div class="box" id="box-6">box-6</div>
+        <div class="box" id="box-7">box-7</div>
+        <div class="box" id="box-8">box-8</div>
+        <div class="box" id="box-9">box-9</div>
+    </div> -->
+
+    <!-- Pseudo classes -->
+     <!-- link , hover , active , visited , first child , last child , nth chlid -->
+      <a href="" id="google">Google</a>
+      <a href="" id="shubham">Shubham</a>
+      <!-- <p id="para">link</p> -->
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root{
+            --primary-color  : black;
+            --secondary-color : rgb(26, 26, 26);
+            --primary-background : aliceblue;
+            --secondary-background : azure;
+            --primdary-border : 1px solid gray;
+            --margin-width : 20px;
+        }
+
+        .dark{
+            --primary-color  : rgb(255, 255, 255);
+            --secondary-color : rgb(211, 211, 211);
+            --primary-background : rgb(42, 42, 42);
+            --secondary-background : rgb(86, 86, 86);
+            --primdary-border : 1px solid rgb(235, 235, 235);
+        }
+        body{
+            background-color: var(--primary-background);
+        }
+        #main-heading{
+            text-align: center;
+            color: var(--primary-color);
+        }
+
+        .box{
+            text-align: center;
+            color: var(--secondary-color);
+            background-color: var(--secondary-background);
+            padding: var(--margin-width);
+            border: var(--primdary-border);
+            margin: var(--margin-width);
+            border-radius: var(--margin-width);
+        }
+    </style>
+</head>
+<body >
+    <button id="theme">Switch Theme</button>
+    <h1 id="main-heading">Tourist Places</h1>
+    <div class="box">
+        <h3>Hills</h3>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corporis aliquid ab magnam nam dolore in ex rerum, voluptate suscipit odio similique! Laudantium incidunt inventore beatae voluptate, a nemo omnis quaerat.</p>
+    </div>
+    <div class="box">
+        <h3>Waterfalls</h3>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corporis aliquid ab magnam nam dolore in ex rerum, voluptate suscipit odio similique! Laudantium incidunt inventore beatae voluptate, a nemo omnis quaerat.</p>
+    </div>
+    <div class="box">
+        <h3>Lakes</h3>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corporis aliquid ab magnam nam dolore in ex rerum, voluptate suscipit odio similique! Laudantium incidunt inventore beatae voluptate, a nemo omnis quaerat.</p>
+    </div>
+    <script>
+        document.getElementById("theme").addEventListener("click",function(){
+            document.body.className = "dark"
+        })
+    </script>
+</body>
+</html>

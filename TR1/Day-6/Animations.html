@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: cadetblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        /* translate , skew , rotate , scale */
+        #container{
+            width: 300px;
+            height: 300px;
+            border: 3px solid rgb(243, 226, 194);
+            border-radius: 50%;
+            /* transform: translate(100px); */
+            /* transform: scale(2); */
+            /* transform: skewY(30deg); */
+            /* transition: 1s ease-in-out; */
+            animation: spinner 2s linear infinite;
+            
+        }
+
+        #box{
+            width: 100px;
+            height: 100px;
+            background-color: antiquewhite;
+            border-radius: 50%;
+            /* transition: 2s linear; */
+            /* animation: spinner 2s ease-in-out infinite; */
+        }
+
+        /* #container:hover{
+            transform: rotate(180deg);
+            background-color: red;
+            border-radius: 50%;
+            border: 1px solid black;
+        } */
+
+        /* #container:hover #box{
+            transform: translate(300px , 300px);
+        } */
+
+        /* @keyframes spinner {
+            0%,100%{
+                transform: translate(0,0);
+            }
+            25%{
+                transform: translate(300px,0);
+            }
+            50%{
+                transform: translate(300px,300px);
+            }
+            75%{
+                transform: translate(0,300px);
+            }
+        } */
+
+        @keyframes spinner {
+            from{
+                transform: rotate(0deg);
+            }
+            to{
+                transform: rotate(360deg);
+            }
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+    <!-- Transform -->
+     <!-- <div id="container">
+        <div id="box"></div>
+     </div> -->
+</body>
+</html>
