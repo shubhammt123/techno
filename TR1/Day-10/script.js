@@ -187,4 +187,5 @@ let result = arr.forEach((item , i)=>{
     // return item;
 })
 
+console.log(arr);
 console.log(result);
