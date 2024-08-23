@@ -190,7 +190,7 @@ let obj = {
 
 let { firstName ,  gender:a , age = "xx" , ...newObj } = obj; 
 
-console.log(firstName)
-console.log(a)
-console.log(age)
-console.log(newObj);
+// console.log(firstName)
+// console.log(a)
+// console.log(age)
+// console.log(newObj);
