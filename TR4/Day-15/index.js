@@ -71,25 +71,25 @@
 
 // call backs or ca
 
-function step1(callback) {
-    setTimeout(() => {
-        console.log("Step 1 Completed");
-        callback();
-    }, 1000)
-}
+// function step1(callback) {
+//     setTimeout(() => {
+//         console.log("Step 1 Completed");
+//         callback();
+//     }, 1000)
+// }
 
-function step2(callback) {
-    setTimeout(() => {
-        console.log("Step 2 Completed");
-        callback();
-    }, 1000)
-}
-function step3(callback) {
-    setTimeout(() => {
-        console.log("Step 3 Completed");
-        callback();
-    }, 1000)
-}
+// function step2(callback) {
+//     setTimeout(() => {
+//         console.log("Step 2 Completed");
+//         callback();
+//     }, 1000)
+// }
+// function step3(callback) {
+//     setTimeout(() => {
+//         console.log("Step 3 Completed");
+//         callback();
+//     }, 1000)
+// }
 // Call back hell
 // step1(()=>{
 //     step2(()=>{
@@ -135,11 +135,11 @@ function step3(callback) {
 
 // https://fakestoreapi.com/products
 
-function fetchData(){
-    let data = fetch("https://fakestoreapi.com/products");
-    // console.log("Next Step After Fetching");
-    return data;
-}
+// function fetchData(){
+//     let data = fetch("https://fakestoreapi.com/products");
+//     // console.log("Next Step After Fetching");
+//     return data;
+// }
 
 // let fetchedData = fetchData();
 // console.log(fetchedData);
@@ -154,19 +154,44 @@ function fetchData(){
 //     console.log(error);
 // });
 
-document.getElementById("product-button").addEventListener("click",function(){
-    fetch("https://fakestoreapi.com/products")
-    .then((res)=>res.json())
-    .then((data)=>{
-        data.forEach((item) => {
-            console.log(item.image);
-            let newDiv = document.createElement("div");
-            newDiv.innerHTML = `<img style='width : 100px' src=${item.image} alt='Product-Image' ><h3>${item.title}</h3><p>${item.price}</p>`;
-            let myDiv = document.getElementById("products");
-            myDiv.appendChild(newDiv);
-        });
-    })
-    .catch((error)=>{
-        console.log(error);
-    })
-});
+// document.getElementById("product-button").addEventListener("click",function(){
+//     fetch("https://fakestoreapi.com/products")
+//     .then((res)=>res.json())
+//     .then((data)=>{
+//         data.forEach((item) => {
+//             console.log(item.image);
+//             let newDiv = document.createElement("div");
+//             newDiv.innerHTML = `<img style='width : 100px' src=${item.image} alt='Product-Image' ><h3>${item.title}</h3><p>${item.price}</p>`;
+//             let myDiv = document.getElementById("products");
+//             myDiv.appendChild(newDiv);
+//         });
+//     })
+//     .catch((error)=>{
+//         console.log(error);
+//     })
+// });
+
+// Async Await
+
+
+
+async function fetchData(){
+    try {
+        let res =await fetch("https://fakestoreapi.com/products");
+    let data = await res.json();
+    document.getElementById("button").addEventListener("click",
+        function (){
+            data.forEach(()=>{
+                
+            })
+        }
+    )
+    } catch (error) {
+        return error;
+    }
+}
+
+let data = fetchData();
+console.log(data);
+
+// fetchData();
