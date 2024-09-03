@@ -12,6 +12,9 @@ import Signup from "./Signup"
 import Home from "./Home"
 import Navbar from "./Navbar"
 import Router from "./router/Router"
+import Reducer from "./Reducer"
+import Callback from "./Callback"
+import Memo from "./Memo"
 
 const data = [
   {
@@ -105,8 +108,10 @@ function App() {
 return (
     <div className="w-full">
       {/* <Navbar /> */}
-
-      <RouterProvider router={Router} />
+      {/* <Reducer /> */}
+      {/* <Callback /> */}
+      <Memo />
+      {/* <RouterProvider router={Router} /> */}
       {/* <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
