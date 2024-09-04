@@ -15,6 +15,7 @@ import Router from "./router/Router"
 import Reducer from "./Reducer"
 import Callback from "./Callback"
 import Memo from "./Memo"
+import Ref from "./Ref"
 
 const data = [
   {
@@ -110,7 +111,8 @@ return (
       {/* <Navbar /> */}
       {/* <Reducer /> */}
       {/* <Callback /> */}
-      <Memo />
+      {/* <Memo /> */}
+      <Ref />
       {/* <RouterProvider router={Router} /> */}
       {/* <Routes>
         <Route path="/" element={<Home />} />
