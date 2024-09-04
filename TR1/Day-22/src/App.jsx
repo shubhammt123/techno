@@ -112,8 +112,8 @@ return (
       {/* <Reducer /> */}
       {/* <Callback /> */}
       {/* <Memo /> */}
-      <Ref />
-      {/* <RouterProvider router={Router} /> */}
+      {/* <Ref /> */}
+      <RouterProvider router={Router} />
       {/* <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
