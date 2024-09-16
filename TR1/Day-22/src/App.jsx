@@ -16,6 +16,7 @@ import Reducer from "./Reducer"
 import Callback from "./Callback"
 import Memo from "./Memo"
 import Ref from "./Ref"
+import ProductPage from "./ProductPage"
 
 const data = [
   {
@@ -113,12 +114,14 @@ return (
       {/* <Callback /> */}
       {/* <Memo /> */}
       {/* <Ref /> */}
-      <RouterProvider router={Router} />
-      {/* <Routes>
+      {/* <RouterProvider router={Router} /> */}
+      <Navbar />
+      <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-      </Routes> */}
+        <Route path="/productPage/:id" element={<ProductPage />} />
+      </Routes>
       {/* <p className="text-3xl text-white">App</p>
       <button className="p-2 border-2 text-gray-200 active:bg-gray-200 active:text-gray-700" onClick={()=>{setCountValue((prev)=>prev+1)}}>Update Count Value</button> */}
       {/* <Child count={count} setCount={setCount} /> */}
