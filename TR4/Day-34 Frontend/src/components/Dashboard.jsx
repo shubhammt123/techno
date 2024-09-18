@@ -42,7 +42,7 @@ const Dashboard = () => {
         </div>
         <div className='w-[96%] mx-auto h-[69vh] bg-slate-300 rounded overflow-auto'>
            {
-            isAddUser ? <UserForm  setIsAddUser={setIsAddUser} fetchData={fetchData} /> : 
+            isAddUser ? <UserForm setIsAddUser={setIsAddUser} fetchData={fetchData} /> : 
             (
                 <table className='text-gray-800 mx-auto w-full border-separate border-spacing-y-3 border-separate-x-2'>
                 <thead>
