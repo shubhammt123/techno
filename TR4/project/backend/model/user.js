@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const bcrypt = require("bcrypt");
 
 const userSchema = mongoose.Schema({
     name : {
@@ -9,7 +10,7 @@ const userSchema = mongoose.Schema({
         maxlength : [50, "Name cannot exceed 50 charaters"],
         validate :  {
             validator : function(value){
-                return validator.isAlpha(value , "en-US");
+                return validator.isAlpha(value , "en-US" , {ignore : " "});
             },
             message : "Name should be in String"
         }
@@ -54,5 +55,14 @@ const userSchema = mongoose.Schema({
         }
     }
 });
+
+userSchema.pre("save",async function(next){
+    
+    const user = this;
+    if(!user.isModified("password")) return next();
+    const hashedPassword = await bcrypt.hash(user.password , 10);
+    user.password =  hashedPassword;
+    next();
+})
 
 module.exports = mongoose.model("User" , userSchema);
