@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const userRoutes = require("./router/user");
 const connectDb = require("./config/db");
+const gloablErrorHandler = require("./middleware/globalErrorHandler");
 
 const app = express();
 
@@ -11,6 +12,9 @@ app.use(cors());
 connectDb();
 
 app.use("/auth" , userRoutes);
+
+
+app.use(gloablErrorHandler);
 
 
 app.listen(5000,()=>{

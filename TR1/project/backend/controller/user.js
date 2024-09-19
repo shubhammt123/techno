@@ -1,13 +1,19 @@
 const User = require("../model/user");
+const bcrypt = require("bcrypt");
 
-exports.signup = async (req,res)=>{
+exports.signup = async (req,res , next)=>{
     try {
         const { name , email , password , phoneNumber } = req.body;
         const existingUser = await User.findOne({email : email});
 
         if(existingUser){
-            return res.status(400).send({message : "User Already exist"});
-        }
+            const error = new Error("User Already exist");
+            error.name = "UserExist";
+            error.statusCode = 400;
+            throw next(error);
+        };
+
+        // const hashedPassword = await bcrypt.hash(password , 12);
 
         const newUser = new User({
             name : name , 
@@ -20,34 +26,32 @@ exports.signup = async (req,res)=>{
         res.status(201).send({message : "User created"});
         
     } catch (err) {
-        console.log(err.name)
-        if(err.name === "ValidationError"){
-            const errors = Object.values(err.errors).map(error => error.message);
-            return res.status(400).json({
-                message : "Validation error",
-                error : errors
-            })
-        }
-        res.status(500).send(err);
+        next(err);
     }
 };
 
-exports.login = async (req,res)=>{
+exports.login = async (req,res , next)=>{
     try {
         const { email , password } = req.body;
         const isExitingUser = await User.findOne({email : email});
         if(!isExitingUser){
-            return res.status(404).send({message : "User not found"});
+            const error = new Error("User not found");
+            error.name = "NotFound";
+            error.statusCode = 404;
+            throw next(error);
         };
 
-        const isMatched = password === isExitingUser.password;
+        const isMatched = await bcrypt.compare(password , isExitingUser.password);
         if(!isMatched) { 
-            return res.status(401).send({message : "Invalid Password"});
+            const error = new Error("Unauthorized");
+            error.name = "UnAuthorized";
+            error.statusCode = 401;
+            throw next(error);
         }
 
         res.status(200).send({message : "User Logged-In" , data : isExitingUser});
     } catch (error) {
-        res.status(500).send(error);
+        next(error);
     }
 }
 
