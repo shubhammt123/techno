@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
     isLoading : false,
@@ -28,5 +29,18 @@ const authSlice = createSlice({
 });
 
 export const { setLoading , setSuccess , setError }  = authSlice.actions;
+
+export const signupUser =(data)=>{
+    return async (dispatch)=>{
+        dispatch(setLoading());
+        try {
+            const response = await axios("http://localhost:5000/auth/signup",data);
+            dispatch(setSuccess(response.data.data))
+        } catch (error) {
+            dispatch(setError(error));
+        }
+    }
+}
+
 
 export default authSlice.reducer;

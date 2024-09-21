@@ -4,7 +4,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux';
 import { z } from 'zod';
-import { setError, setLoading, setSuccess } from '../redux/slices/authSlice';
+import { setError, setLoading, setSuccess, signupUser } from '../redux/slices/authSlice';
 
 const Signup = () => {
     const validationSchema = z.object({
@@ -25,13 +25,7 @@ const Signup = () => {
         resolver : zodResolver(validationSchema)
     });
     const onSubmit = async (data)=>{
-        dispatch(setLoading());
-        try {
-            const response = await axios.post("http://localhost:5000/auth/signu",data);
-            dispatch(setSuccess(response.data.data));
-        } catch (error) {
-            dispatch(setError(error));
-        }
+        dispatch(signupUser(data));
     }
     return (
         <div className='flex w-[90%] h-4/5 justify-between items-center bg-white shadow-2xl'>
