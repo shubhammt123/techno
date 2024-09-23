@@ -1,10 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { z } from 'zod';
-import { setError, setLoading, setSuccess, signupUser } from '../redux/slices/authSlice';
+import { signup } from '../redux/slices/authSlice';
+
 
 const Signup = () => {
     const validationSchema = z.object({
@@ -20,13 +21,21 @@ const Signup = () => {
 
     const dispatch = useDispatch();
 
+    const { isLoading , error } = useSelector((state)=>state.auth);
+
 
     const { register , handleSubmit , formState : {errors} } = useForm({
         resolver : zodResolver(validationSchema)
     });
     const onSubmit = async (data)=>{
-        dispatch(signupUser(data));
+        dispatch(signup(data));
     }
+
+    useEffect(()=>{
+        if(error){
+            alert(error.message)
+        }
+    },error)
     return (
         <div className='flex w-[90%] h-4/5 justify-between items-center bg-white shadow-2xl'>
             <div>
@@ -65,7 +74,7 @@ const Signup = () => {
                         ) }
                     </div>
                     </div>
-                    <button className='p-2 w-[90%] my-4 font-medium text-gray-600 shadow bg-sky-300 active:bg-sky-400'>Signup</button>
+                    <button className='p-2 w-[90%] my-4 font-medium text-gray-600 shadow bg-sky-300 active:bg-sky-400'>{isLoading ? "Loading" : "Sign-up"}</button>
                 </form>
             </div>
         </div>
