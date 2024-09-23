@@ -16,15 +16,21 @@ import MyOrder from '../components/MyOrder'
 import Order from '../components/Order'
 import UserAdminPrivate from '../components/UserAdminPrivate'
 import Private from '../components/Private'
+import OpenRoute from '../components/OpenRoute'
 
 const Router = createBrowserRouter([
     {
-        path : "/",
-        element : <Home />
-    },
-    {
-        path : "/cart",
-        element : <Cart />
+        element : <OpenRoute />,
+        children : [
+            {
+            path : "/",
+            element : <Home />
+        },
+        {
+            path : "/cart",
+            element : <Cart />
+        },
+    ]
     },
     {
         element : <Unprotected />,

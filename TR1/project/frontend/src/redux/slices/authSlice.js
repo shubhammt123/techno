@@ -28,8 +28,8 @@ const initialState = {
     isLoading : false,
     error : null,
     user : null,
-    isAuth : true,
-    role : "Admin"
+    isAuth : false,
+    role : null
 }
 
 const authSlice = createSlice({
@@ -58,6 +58,7 @@ const authSlice = createSlice({
         .addCase(login.fulfilled , (state,action)=>{
             state.isLoading = false,
             state.user = action.payload.data.data,
+            state.role = action.payload.data.data.role,
             state.isAuth = true,
             state.error = null
         })
