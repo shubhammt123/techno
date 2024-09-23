@@ -4,7 +4,8 @@ import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
 import { z } from 'zod';
-import { signup } from '../redux/slices/authSlice';
+import { login } from '../redux/slices/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
@@ -14,22 +15,29 @@ const Login = () => {
     });
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const { isLoading , error } = useSelector((state)=>state.auth);
+    const { isLoading , error , isAuth } = useSelector((state)=>state.auth);
 
 
     const { register , handleSubmit , formState : {errors} } = useForm({
         resolver : zodResolver(validationSchema)
     });
     const onSubmit = async (data)=>{
-        dispatch(signup(data));
+        dispatch(login(data));
     }
 
     useEffect(()=>{
         if(error){
             alert(error.message)
         }
-    },error)
+    },[error]);
+
+    useEffect(()=>{
+      if(isAuth){
+        navigate("/")
+      }
+    },[isAuth]);
     return (
         <div className='flex w-[90%] h-4/5 justify-between items-center bg-white shadow-2xl'>
             <div>
@@ -39,7 +47,6 @@ const Login = () => {
             <h1 className='text-3xl w-4/5 font-semibold text-center h-1/3 flex items-center justify-center'>Welcome Back !</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className=''>
-                    
                     <div>
                     <label className='text-gray-500 font-medium'>Email</label>
                     <input type="email" className={`block p-2 border outline-none w-4/5 my-2 ${errors.email ? 'border-red-500' : "border-gray-700"}`} {...register("email")}  />

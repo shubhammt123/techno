@@ -35,7 +35,7 @@ const Signup = () => {
         if(error){
             alert(error.message)
         }
-    },error)
+    },[error])
     return (
         <div className='flex w-[90%] h-4/5 justify-between items-center bg-white shadow-2xl'>
             <div>
