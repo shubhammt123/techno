@@ -3,8 +3,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { z } from 'zod';
-import { setError, setLoading, setSuccess, signup } from '../redux/slices/authSlice';
-import axios from 'axios';
+import { signup } from '../redux/slices/authSlice';
 
 const Singup = () => {
     const validationSchema = z.object({
