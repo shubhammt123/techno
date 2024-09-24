@@ -10,7 +10,7 @@ const userSchema = mongoose.Schema({
         maxlength: [50, "Name cannot exceed 50 charater"],
         validate: {
             validator: function (value) {
-                return validator.isAlpha(value, "en-US");
+                return validator.isAlpha(value, "en-US",{ignore : " "});
             },
             message: "Name should be in string"
         }
@@ -53,6 +53,18 @@ const userSchema = mongoose.Schema({
             },
             message: "Please Enter a valid Phone number"
         }
+    },
+    role : {
+        type : String,
+        required : [true , "Role is required"],
+        enum : ["User","Admin"],
+        default : "User",
+    },
+    status : {
+        type : Boolean,
+        required  : [true , "Status is required"],
+        enum : [true,false],
+        default : true
     }
 });
 
