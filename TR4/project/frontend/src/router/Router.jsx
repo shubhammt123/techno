@@ -13,15 +13,19 @@ import AdminUser from '../components/AdminUser'
 import AdminProduct from '../components/AdminProduct'
 import AdminOrder from '../components/AdminOrder'
 import Profile from '../components/Profile'
+import OpenROutes from '../components/OpenROutes'
 
 const Router = createBrowserRouter([
     {
-        path : "/",
-        element  : <Home />
-    },
-    {
-        path : "/cart",
-        element  : <Cart />
+        element : <OpenROutes />,
+        children :  [{
+            path : "/",
+            element  : <Home />
+        },
+        {
+            path : "/cart",
+            element  : <Cart />
+        },]
     },
     {
         element :  <UnProtected />,
