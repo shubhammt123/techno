@@ -1,10 +1,21 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import { MdLogout } from "react-icons/md";
+import { logout } from '../redux/slices/authSlice';
 
 const Navbar = () => {
     const { isAuth , role } = useSelector((state)=>state.auth);
-    console.log(role)
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    
+    const handleLogout = ()=>{
+        localStorage.removeItem("token");
+        dispatch(logout());
+    }
+
+    
   return (
     <div className='flex justify-between items-center m-4 bg-gray-100 p-4'>
         <div className='text-3xl font-semibold'>
@@ -21,6 +32,9 @@ const Navbar = () => {
         <Link to="/cart">Cart</Link>
             <Link to="/myorder">My Orders</Link>
             <Link to="/profile">Profile</Link>
+            <button className='text-xl active:text-gray-600' onClick={handleLogout}>
+            <MdLogout  />
+            </button>
         </div>
                     : 
                     <div className='flex gap-5 font-medium'>
@@ -28,6 +42,11 @@ const Navbar = () => {
             <Link to="/adminUser">Users</Link>
             <Link to="/adminProduct">Products</Link>
             <Link to="/adminOrder">Orders</Link>
+            <button className='text-xl active:text-gray-600' onClick={handleLogout}>
+            <MdLogout  />
+            </button>
+            
+            
         </div>
                 ) :
                 (

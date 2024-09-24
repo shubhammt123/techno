@@ -1,6 +1,8 @@
+import { jwtDecode } from 'jwt-decode'
 import React from 'react'
 
 const Home = () => {
+
   return (
     <div>Home</div>
   )

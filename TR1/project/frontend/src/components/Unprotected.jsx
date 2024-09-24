@@ -13,7 +13,8 @@ const Unprotected = () => {
     },[isAuth]);
 
   return (
-    <div className='w-full h-full m-0 p-0'><Outlet /></div>
+    <div className='w-full h-full m-0 p-0 flex justify-center
+     items-center'><Outlet /></div>
   )
 }
 

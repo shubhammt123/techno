@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 export const signup = createAsyncThunk(
     'auth/signup',
@@ -17,6 +18,8 @@ export const login = createAsyncThunk(
     async (data , {rejectWithValue})=>{
         try {
             const response = await axios.post("http://localhost:5000/auth/login",data);
+            console.log(response.data);
+            localStorage.setItem("token" , response.data.token);
         return response;
         } catch (error) {
             return rejectWithValue(error);
@@ -24,18 +27,31 @@ export const login = createAsyncThunk(
     }
 )
 
+const getRole = ()=>{
+    const token = localStorage.getItem("token");
+    if(token){
+        const decodedToken = jwtDecode(token);
+        return decodedToken.role
+    }
+    return null
+}
+
 const initialState = {
     isLoading : false,
     error : null,
     user : null,
-    isAuth : false,
-    role : null
+    isAuth : localStorage.getItem("token") ? true : false,
+    role : getRole()
 }
 
 const authSlice = createSlice({
     name : "auth",
     initialState,
     reducers : {
+        logout : (state)=>{
+            state.isAuth = false;
+            state.role = null
+        }
     },
     extraReducers :(builder)=>{
         builder
@@ -69,7 +85,7 @@ const authSlice = createSlice({
     }
 });
 
-// export const { setLoading , setSuccess , setError }  = authSlice.actions;
+export const { logout }  = authSlice.actions;
 
 // export const signupUser =(data)=>{
 //     return async (dispatch)=>{
