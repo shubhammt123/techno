@@ -18,7 +18,7 @@ const Protected = ({allowedRole}) => {
         }
     },[role])
   return (
-    <div>
+    <div className='w-full h-full'>
         <Navbar />
         <Outlet />
         </div>

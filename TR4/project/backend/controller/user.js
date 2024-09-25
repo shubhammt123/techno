@@ -1,9 +1,10 @@
 const User = require("../model/user");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 exports.signup = async (req,res , next)=>{
     try {
-        const { name , email , password , phoneNumber } = req.body;
+        const { name , email , password , phoneNumber , role } = req.body;
         const isExisting = await User.findOne({email : email});
         if(isExisting){
             const error = new Error("User already exist")
@@ -13,10 +14,10 @@ exports.signup = async (req,res , next)=>{
         };
 
         // const hashedPassword = await bcrypt.hash(password , 10);
-        const newUser = new User({name : name , email : email , password : password , phoneNumber  : phoneNumber});
+        const newUser = new User({name : name , email : email , password : password , phoneNumber  : phoneNumber , role});
         console.log("hello");
         await newUser.save();
-        res.status(201).send({message : "Account created"});
+        res.status(201).send({message : "Account created" , data : newUser});
     } catch (error) {
         next(error);
     }
@@ -42,7 +43,8 @@ exports.login = async (req,res,next)=>{
             throw error;
         }
 
-        res.status(200).send({message : "User Logged-In" , data : isExisting});
+        const token = jwt.sign({id : isExisting._id , email : isExisting.email ,  role :  isExisting.role},"your_jwt_secret",{expiresIn : "1h"});
+        res.status(200).send({message : "User Logged-In" , data : isExisting  ,  token : token});
  
     } catch (error) {
         next(error);

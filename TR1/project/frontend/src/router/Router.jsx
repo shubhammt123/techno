@@ -30,6 +30,10 @@ const Router = createBrowserRouter([
             path : "/cart",
             element : <Cart />
         },
+        {
+            path : "/googleAuth",
+            element : <Cart />
+        },
     ]
     },
     {

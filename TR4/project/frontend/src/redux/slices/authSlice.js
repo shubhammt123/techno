@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 export const signup = createAsyncThunk("auth/signup",async (data  , {rejectWithValue})=>{
     try {
@@ -12,25 +13,39 @@ export const signup = createAsyncThunk("auth/signup",async (data  , {rejectWithV
 export const login = createAsyncThunk("auth/login",async (data  , {rejectWithValue})=>{
     try {
         const response = await axios.post("http://localhost:5000/auth/login",data);
+        localStorage.setItem("token" , response.data.token);
         return response.data.data;
     } catch (error) {
         rejectWithValue(error);
     }
 })
 
+const getRole = ()=>{
+    const token = localStorage.getItem("token");
+    if(token){
+        const decodedToken = jwtDecode(token);
+        return decodedToken.role;
+    }
+    return null;
+}
+
 const initialState =   {
     isLoading : false,
     user : null,
     error : null,
-    isAuth : false,
-    role : null
+    isAuth : localStorage.getItem("token") ? true : false,
+    role : getRole()
 }
 
 const authSlice = createSlice({
     name : "auth",
     initialState,
     reducers : {
-        
+        logOut : (state,action)=>{
+            localStorage.removeItem("token");
+            state.isAuth = false;
+            state.role =  null
+        }
     },
     extraReducers : (builder)=>{
         builder
@@ -63,6 +78,6 @@ const authSlice = createSlice({
     }
 })
 
-export const { setLoading ,setSuccess , setError } = authSlice.actions;
+export const { logOut } = authSlice.actions;
 
 export default authSlice.reducer;
