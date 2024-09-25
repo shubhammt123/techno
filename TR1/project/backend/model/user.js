@@ -3,6 +3,10 @@ const validator = require("validator");
 const bcrypt = require("bcrypt");
 
 const userSchema = mongoose.Schema({
+    googleId :  {
+        type : String,
+        default : null
+    },
     name: {
         type: String,
         required: [true, "Name is required"],
@@ -28,11 +32,13 @@ const userSchema = mongoose.Schema({
     },
     password: {
         type: String,
-        required: [true, "Password is required"],
-        minlength: [8, "Password must be 8 charater long"],
+        required: function(){
+            return !this.googleId
+        },
         maxlength: [128, "Password cannot exceed 128 charaters"],
         validate: {
             validator: function (value) {
+                if(this.googleId) return true
                 return validator.isStrongPassword(value, {
                     minLength: 8,
                     minLowercase: 1,
@@ -46,9 +52,12 @@ const userSchema = mongoose.Schema({
     },
     phoneNumber: {
         type: String,
-        required: [true, "Phone Number is required"],
+        required: function(){
+            return !this.googleId
+        },
         validate: {
             validator: function (value) {
+                if(this.googleId) return true
                 return validator.isMobilePhone(value, "en-IN")
             },
             message: "Please Enter a valid Phone number"
@@ -72,7 +81,7 @@ const userSchema = mongoose.Schema({
 userSchema.pre("save", async function (next) {
     try {
         const user = this;
-        if (!user.isModified("password")) return next();
+        if (!user.isModified("password") || user.googleId) return next();
         const hashedPassword = await bcrypt.hash(user.password, 12);
         user.password = hashedPassword;
         next();
