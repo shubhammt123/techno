@@ -35,6 +35,9 @@ const Login = () => {
       }
     },[isAuth]);
     
+    const handleGoogleLogin = ()=>{
+        window.location.href = "http://localhost:5000/api/auth/google";
+    }
   return (
     <div className='w-4/5 h-4/5 flex justify-center items-center bg-white shadow-2xl rounded'>
         <div className='w-1/2'>
@@ -63,6 +66,7 @@ const Login = () => {
                 </div>
                 <button className='bg-blue-500 my-5 text-white font-medium p-2 w-[90%] shadow-xl rounded active:bg-blue-600'>Log-In</button>
             </form>
+            <button className='bg-red-700 my-5 text-white font-medium p-2 w-[90%] shadow-xl rounded active:bg-red-600' onClick={handleGoogleLogin}>Log-In With Google</button>
         </div>
     </div>
   )
