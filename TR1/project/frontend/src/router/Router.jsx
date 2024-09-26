@@ -17,6 +17,7 @@ import Order from '../components/Order'
 import UserAdminPrivate from '../components/UserAdminPrivate'
 import Private from '../components/Private'
 import OpenRoute from '../components/OpenRoute'
+import GoogleAuth from '../components/GoogleAuth'
 
 const Router = createBrowserRouter([
     {
@@ -32,7 +33,7 @@ const Router = createBrowserRouter([
         },
         {
             path : "/googleAuth",
-            element : <Cart />
+            element : <GoogleAuth />
         },
     ]
     },

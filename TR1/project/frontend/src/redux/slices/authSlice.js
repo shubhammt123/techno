@@ -51,6 +51,13 @@ const authSlice = createSlice({
         logout : (state)=>{
             state.isAuth = false;
             state.role = null
+        },
+        loginWithGoogle : (state,action)=>{
+            const { token , role , user } = action.payload;
+            localStorage.setItem("token" , token);
+            state.isAuth = true;
+            state.role = role;
+            state.user = user;
         }
     },
     extraReducers :(builder)=>{
