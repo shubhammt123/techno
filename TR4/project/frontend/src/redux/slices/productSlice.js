@@ -29,6 +29,7 @@ const initialState = {
     isLoading : false,
     error : null,
     products : [],
+    isProductAdded : false
 }
 
 const productSlice = createSlice({
@@ -40,9 +41,11 @@ const productSlice = createSlice({
     extraReducers :(builder)=>{
         builder
         .addCase(addProduct.pending , (state)=>{
+            state.isProductAdded = false;
             state.isLoading = true
         })
         .addCase(addProduct.fulfilled , (state,action)=>{
+            state.isProductAdded  =true ;
             state.isLoading = false,
             state.error = null
         })
