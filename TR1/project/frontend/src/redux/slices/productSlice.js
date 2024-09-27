@@ -14,10 +14,13 @@ export const addProduct = createAsyncThunk(
 )
 export const getAllProduct = createAsyncThunk(
     'product/getAllProduct',
-    async (data , {rejectWithValue})=>{
+    async (_ , {rejectWithValue})=>{
         try {
-            const response = await axios.get("http://localhost:5000/api/product",data);
-        return response;
+            const response = await axios.get("http://localhost:5000/api/product");
+            const updateProducts = response.data.data.map((item,i)=>{
+                return {...item , id : i+1}
+            })
+        return updateProducts;
         } catch (error) {
             return rejectWithValue(error);
         }
@@ -29,6 +32,7 @@ const initialState = {
     isLoading : false,
     error : null,
     products : [],
+    isProductAdded : false
 }
 
 const productSlice = createSlice({
@@ -40,10 +44,12 @@ const productSlice = createSlice({
     extraReducers :(builder)=>{
         builder
         .addCase(addProduct.pending , (state)=>{
+            state.isProductAdded = false;
             state.isLoading = true
         })
         .addCase(addProduct.fulfilled , (state,action)=>{
-            state.isLoading = false,
+            state.isProductAdded = true;
+            state.isLoading = false;
             state.error = null
         })
         .addCase(addProduct.rejected , (state , action)=>{
@@ -55,7 +61,7 @@ const productSlice = createSlice({
         })
         .addCase(getAllProduct.fulfilled , (state,action)=>{
             state.isLoading = false,
-            state.products = action.payload.data.data,
+            state.products = action.payload,
             state.error = null
         })
         .addCase(getAllProduct.rejected , (state , action)=>{

@@ -1,15 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Modal from '@mui/joy/Modal';
 import ModalClose from '@mui/joy/ModalClose';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
 import { Box } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addProduct } from '../redux/slices/productSlice';
 
 const ProductFormModel = ({open,setOpen}) => {
     const { register , handleSubmit } = useForm();
+
+    const { isProductAdded } = useSelector((state)=>state.product);
 
     const dispatch = useDispatch();
 
@@ -24,6 +26,12 @@ const ProductFormModel = ({open,setOpen}) => {
 
         dispatch(addProduct(formData));
     }
+
+    useEffect(()=>{
+      if(isProductAdded){
+        setOpen(false);
+      }
+    },[isProductAdded]);
   return (
     <div>
         <Modal
