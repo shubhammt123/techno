@@ -10,6 +10,7 @@ const AdminProduct = () => {
   const [open, setOpen] = useState(false);
   const [isUpdate , setIsUpdate]= useState(false);
   const [rowData , setRowData] = useState({});
+  const [isImageUpdate ,  setIsImageUpdate] = useState(false);
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
     { field: 'productUrl', headerName: 'Product Image', width: 190 , renderCell : (params)=>{
@@ -28,7 +29,7 @@ const AdminProduct = () => {
     { field: 'action', headerName: 'Action', width: 100 , renderCell : (params)=>{
       return (
         <div className='flex justify-center items-center h-full cursor-pointer  '>
-          <div className='w-1/2 h-4/5 flex justify-center  hover:bg-black hover:text-white rounded-full' onClick={()=>{handleUpdateClick(params.row)}}>
+          <div className='w-1/2 h-4/5 flex justify-center items-center  hover:bg-black hover:text-white rounded-full' onClick={()=>{handleUpdateClick(params.row)}}>
           <FaEdit className='text-sm' />
           </div>
           
@@ -39,6 +40,7 @@ const AdminProduct = () => {
 
   const handleUpdateClick = (data)=>{
     setIsUpdate(true);
+    setIsImageUpdate(false);
     setRowData(data);
     
     setOpen(true)
@@ -67,7 +69,7 @@ const AdminProduct = () => {
       <div className='m-4 p-4'>
       <DataTable columns={columns} />
       </div>
-      <ProductFormModel open={open}  setOpen={setOpen} row={rowData} isUpdate={isUpdate} />
+      <ProductFormModel open={open}  setOpen={setOpen} row={rowData} isUpdate={isUpdate} isImageUpdate={isImageUpdate} setIsImageUpdate={setIsImageUpdate} />
       
     </div>
   )

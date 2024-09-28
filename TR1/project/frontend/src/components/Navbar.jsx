@@ -10,9 +10,11 @@ import { PiShoppingBagFill } from "react-icons/pi";
 import { CgProfile } from "react-icons/cg";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { FaUsers } from "react-icons/fa";
+import Badge from '@mui/material/Badge';
 
 const Navbar = () => {
     const { isAuth, role } = useSelector((state) => state.auth);
+    const { cartItem } = useSelector((state) => state.cart);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -38,8 +40,13 @@ const Navbar = () => {
                         role === "User" ?
                             <div className='flex gap-5 text-lg font-normal'>
                                 <Link to="/cart"><div className='flex flex-col items-center hover:transform hover:scale-105'>
+                                <Badge badgeContent={cartItem.length || 0} color="error">
+                                    <div flex flex-col items-center>
                                     <FaShoppingCart />
                                     <p className='text-xs'>Cart</p>
+                                    </div>
+                                    
+                                    </Badge>
                                 </div></Link>
                                 <Link to="/myorder"><div className='flex flex-col items-center hover:transform hover:scale-105'>
                                 <PiShoppingBagFill />

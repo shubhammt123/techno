@@ -6,9 +6,11 @@ import Sheet from '@mui/joy/Sheet';
 import { Box } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { addProduct } from '../redux/slices/productSlice';
+import { addProduct, updateProduct } from '../redux/slices/productSlice';
+import { FaEdit } from "react-icons/fa";
 
-const ProductFormModel = ({open,setOpen , row , isUpdate}) => {
+const ProductFormModel = ({open,setOpen , row , isUpdate , isImageUpdate , setIsImageUpdate}) => {
+  
     const { register , handleSubmit , reset } = useForm();
 
     const { isProductAdded } = useSelector((state)=>state.product);
@@ -17,14 +19,18 @@ const ProductFormModel = ({open,setOpen , row , isUpdate}) => {
 
     const onSubmit = (data)=>{
         const formData = new FormData();
-
         formData.append("name",data.name);
         formData.append("price",data.price);
         formData.append("description",data.description);
         formData.append("category",data.category);
-        formData.append("productImage",data.productImage[0]);
+        if(isUpdate){
+          dispatch(updateProduct(data));
+        }else{
+          formData.append("productImage",data.productImage[0]);
 
         dispatch(addProduct(formData));
+        }
+        
     }
 
     useEffect(()=>{
@@ -80,7 +86,16 @@ const ProductFormModel = ({open,setOpen , row , isUpdate}) => {
                 </div>
                 <div>
                 <label className='text-sm block '>Image</label>
-                <input type="file" className='p-2 py-1 border border-gray-800 outline-none bg-transparent my-3 text-xs' {...register("productImage")} />
+                {isUpdate ? 
+                  (isImageUpdate ? <div>
+                    <input type="file" className='p-2 py-1 border border-gray-800 outline-none bg-transparent my-3 text-xs' {...register("productImage")} />
+                    <span className='mx-2 cursor-pointer hover:text-md' onClick={()=>{setIsImageUpdate(false)}}>X</span>
+                  </div> : <div className='flex gap-4'>
+                  <img src={`http://localhost:5000/${row.productUrl}`} className='w-[150px]' />
+                  <FaEdit className='text-sm  cursor-pointer  hover:transform hover:scale-105' onClick={()=>{setIsImageUpdate(true)}} />
+                </div>)
+                 : <input type="file" className='p-2 py-1 border border-gray-800 outline-none bg-transparent my-3 text-xs' {...register("productImage")} />}
+                
                 </div>
                 </div>
                 <button className='bg-black text-white text-xs p-2 active:bg-gray-800'>
