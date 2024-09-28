@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
 import { z } from 'zod';
 import { login } from '../redux/slices/authSlice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
@@ -47,7 +47,7 @@ const Login = () => {
         <div className='flex w-1/3 h-[90%] justify-between items-center bg-white shadow-2xl'>
             
             <div className='w-full h-full flex flex-col justify-start items-center'>
-            <h1 className='text-3xl w-full font-semibold text-center h-1/3 flex items-center justify-center'>Welcome Back !</h1>
+            <h1 className='text-3xl w-full font-semibold text-center h-1/4 flex items-center justify-center'>Welcome Back !</h1>
                 <form onSubmit={handleSubmit(onSubmit)} className='w-full flex flex-col items-center'>
                     <div className='w-full flex flex-col justify-center items-center'>
                     <div className='w-full flex flex-col items-center'>
@@ -66,9 +66,12 @@ const Login = () => {
                     </div>
                     
                     </div>
-                    <button className='p-2 w-4/5 my-4 font-medium text-gray-100 shadow bg-black active:bg-gray-800'>{isLoading ? "Loading" : "Log-In"}</button>
+                    <button className='p-2 w-4/5 my-4 font-medium text-gray-100 shadow bg-black active:bg-gray-800'>{isLoading ? "Loading..." : "Log-In"}</button>
                 </form>
                 <button className='p-2 w-4/5 my-2 font-medium text-gray-100 shadow bg-red-700 active:bg-red-800' onClick={handleGoogleLogin}>Log-In With Google</button>
+                <div className='mt-2 text-sm'>
+                    <p>Don't have an account? <Link to="/signup"><span className='text-blue-600 cursor-pointer hover:underline'>Create Now!</span></Link></p>
+                </div>
             </div>
         </div>
         </div>

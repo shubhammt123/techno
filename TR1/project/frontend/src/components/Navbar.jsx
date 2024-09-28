@@ -37,57 +37,66 @@ const Navbar = () => {
                     isAuth ? (
                         role === "User" ?
                             <div className='flex gap-5 text-lg font-normal'>
-                                <Link to="/cart"><div className='flex flex-col items-center'>
+                                <Link to="/cart"><div className='flex flex-col items-center hover:transform hover:scale-105'>
                                     <FaShoppingCart />
                                     <p className='text-xs'>Cart</p>
                                 </div></Link>
-                                <Link to="/myorder"><div className='flex flex-col items-center'>
+                                <Link to="/myorder"><div className='flex flex-col items-center hover:transform hover:scale-105'>
                                 <PiShoppingBagFill />
                                     <p className='text-xs'>My Orders</p>
                                 </div></Link>
-                                <Link to="/profile"><div className='flex flex-col items-center'>
+                                <Link to="/profile"><div className='flex flex-col items-center hover:transform hover:scale-105'>
                                 <CgProfile />
                                     <p className='text-xs'>Profile</p>
                                 </div></Link>
-                                <button className='text-xl active:text-gray-600' onClick={handleLogout}>
+                                <div className='flex flex-col items-center hover:transform hover:scale-105'>
+                                <button className=' active:text-gray-600' onClick={handleLogout}>
                                     <MdLogout />
+                                    
                                 </button>
+                                <p className='text-xs'>Logout</p>
+                                </div>
+                                
                             </div>
                             :
                             <div className='flex gap-5 font-medium'>
-                                <Link to="/dashboard"><div className='flex flex-col items-center'>
+                                <Link to="/dashboard"><div className='flex flex-col items-center hover:transform hover:scale-105'>
                                     <MdOutlineDashboardCustomize />
                                     <p className='text-xs'>Dashboard</p>
                                 </div></Link>
-                                <Link to="/adminUser"><div className='flex flex-col items-center'>
+                                <Link to="/adminUser"><div className='flex flex-col items-center hover:transform hover:scale-105'>
                                     <FaUsers />
                                     <p className='text-xs'>Users</p>
                                 </div></Link>
-                                <Link to="/adminProduct"><div className='flex flex-col items-center'>
+                                <Link to="/adminProduct"><div className='flex flex-col items-center hover:transform hover:scale-105'>
                                     <FaUsers />
                                     <p className='text-xs'>Products</p>
                                 </div></Link>
-                                <Link to="/adminOrder"><div className='flex flex-col items-center'>
+                                <Link to="/adminOrder"><div className='flex flex-col items-center hover:transform hover:scale-105'>
                                     <FaUsers />
                                     <p className='text-xs'>Orders</p>
                                 </div></Link>
-                                <button className='text-xl active:text-gray-600' onClick={handleLogout}>
+                                <div className='flex flex-col items-center hover:transform hover:scale-105'>
+                                <button className=' active:text-gray-600' onClick={handleLogout}>
                                     <MdLogout />
+                                    
                                 </button>
+                                <p className='text-xs'>Logout</p>
+                                </div>
 
 
                             </div>
                     ) :
                         (
                             <div className='flex gap-5 text-lg font-normal'>
-                                <Link to="/cart"><div className='flex flex-col items-center'>
+                                <Link to="/cart"><div className='flex flex-col items-center hover:transform hover:scale-105'>
                                     <FaShoppingCart />
                                     <p className='text-xs'>Cart</p>
                                 </div></Link>
-                                <Link to="/login"><div className='flex flex-col items-center'><RiLoginBoxFill />
+                                <Link to="/login"><div className='flex flex-col items-center hover:transform hover:scale-105'><RiLoginBoxFill />
                                     <p className='text-xs'>
                                         Login</p></div></Link>
-                                <Link to="/signup"><div className='flex flex-col items-center'>
+                                <Link to="/signup"><div className='flex flex-col items-center hover:transform hover:scale-105'>
                                     <FaUserPlus />
                                     <p className='text-xs'>Signup</p>
                                 </div></Link>

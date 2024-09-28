@@ -8,8 +8,8 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProduct } from '../redux/slices/productSlice';
 
-const ProductFormModel = ({open,setOpen}) => {
-    const { register , handleSubmit } = useForm();
+const ProductFormModel = ({open,setOpen , row , isUpdate}) => {
+    const { register , handleSubmit , reset } = useForm();
 
     const { isProductAdded } = useSelector((state)=>state.product);
 
@@ -32,6 +32,12 @@ const ProductFormModel = ({open,setOpen}) => {
         setOpen(false);
       }
     },[isProductAdded]);
+
+    useEffect(()=>{
+      if(row){
+        reset(row)
+      }
+    },[row,reset]);
   return (
     <div>
         <Modal
@@ -53,7 +59,7 @@ const ProductFormModel = ({open,setOpen}) => {
             textColor="inherit"
             sx={{ fontWeight: 'lg', mb: 1 }}
           >
-            Add Product
+            {isUpdate ? "Update Product" : "Add Product"}
           </Typography>
           <Box>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -80,7 +86,7 @@ const ProductFormModel = ({open,setOpen}) => {
                 </div>
                 </div>
                 <button className='bg-black text-white text-xs p-2 active:bg-gray-800'>
-                    Add Product
+                {isUpdate ? "Update Product" : "Add Product"}
                 </button>
             </form>
           </Box>
