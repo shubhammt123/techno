@@ -2,37 +2,44 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
-export const signup = createAsyncThunk("auth/signup",async (data  , {rejectWithValue})=>{
-    try {
-        const response = await axios.post("http://localhost:5000/auth/signup",data);
-        return response.data.data;
-    } catch (error) {
-        rejectWithValue(error);
+export const signup = createAsyncThunk(
+    'auth/signup',
+    async (data , {rejectWithValue})=>{
+        try {
+            const response = await axios.post("http://localhost:5000/auth/signup",data);
+        return response;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
     }
-})
-export const login = createAsyncThunk("auth/login",async (data  , {rejectWithValue})=>{
-    try {
-        const response = await axios.post("http://localhost:5000/auth/login",data);
-        localStorage.setItem("token" , response.data.token);
-        return response.data.data;
-    } catch (error) {
-        rejectWithValue(error);
+)
+export const login = createAsyncThunk(
+    'auth/login',
+    async (data , {rejectWithValue})=>{
+        try {
+            const response = await axios.post("http://localhost:5000/auth/login",data);
+            console.log(response.data);
+            localStorage.setItem("token" , response.data.token);
+        return response;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
     }
-})
+)
 
 const getRole = ()=>{
     const token = localStorage.getItem("token");
     if(token){
         const decodedToken = jwtDecode(token);
-        return decodedToken.role;
+        return decodedToken.role
     }
-    return null;
+    return null
 }
 
-const initialState =   {
+const initialState = {
     isLoading : false,
-    user : null,
     error : null,
+    user : null,
     isAuth : localStorage.getItem("token") ? true : false,
     role : getRole()
 }
@@ -41,50 +48,63 @@ const authSlice = createSlice({
     name : "auth",
     initialState,
     reducers : {
-        logOut : (state,action)=>{
-            localStorage.removeItem("token");
+        logout : (state)=>{
             state.isAuth = false;
-            state.role =  null
+            state.role = null
         },
-        loginWithGoogle : (state,  action)=>{
-            localStorage.setItem("token" ,  action.payload.token);
-            
-            state.user = action.payload.user,
-            state.role = action.payload.role,
-            state.isAuth = true
+        loginWithGoogle : (state,action)=>{
+            const { token , role , user } = action.payload;
+            localStorage.setItem("token" , token);
+            state.isAuth = true;
+            state.role = role;
+            state.user = user;
         }
     },
-    extraReducers : (builder)=>{
+    extraReducers :(builder)=>{
         builder
-        .addCase(signup.pending,(state,action)=>{
-            state.isLoading = true;
-            state.user = null
+        .addCase(signup.pending , (state)=>{
+            state.isLoading = true
         })
-        .addCase(signup.fulfilled,(state,action)=>{
-            state.isLoading = false;
-            state.user = action.payload
+        .addCase(signup.fulfilled , (state,action)=>{
+            state.isLoading = false,
+            state.user = action.payload.data.data,
+            state.error = null
         })
-        .addCase(signup.rejected,(state,action)=>{
-            state.isLoading = false;
-            state.error =  action.payload
+        .addCase(signup.rejected , (state , action)=>{
+            console.log(action.payload)
+            state.isLoading = false,
+            state.error = action.payload?.response?.data
         })
-        .addCase(login.pending,(state,action)=>{
-            state.isLoading = true;
-            state.user = null
+        .addCase(login.pending , (state)=>{
+            state.isLoading = true
         })
-        .addCase(login.fulfilled,(state,action)=>{
-            state.isLoading = false;
-            state.user = action.payload;
-            state.role = action.payload.role;
-            state.isAuth = true;
+        .addCase(login.fulfilled , (state,action)=>{
+            state.isLoading = false,
+            state.user = action.payload.data.data,
+            state.role = action.payload.data.data.role,
+            state.isAuth = true,
+            state.error = null
         })
-        .addCase(login.rejected,(state,action)=>{
-            state.isLoading = false;
-            state.error =  action.payload
+        .addCase(login.rejected , (state , action)=>{
+            state.isLoading = false,
+            state.error = action.payload?.response?.data
         })
     }
-})
+});
 
-export const { logOut , loginWithGoogle } = authSlice.actions;
+export const { logout }  = authSlice.actions;
+
+// export const signupUser =(data)=>{
+//     return async (dispatch)=>{
+//         dispatch(setLoading());
+//         try {
+//             const response = await axios("http://localhost:5000/auth/signup",data);
+//             dispatch(setSuccess(response.data.data))
+//         } catch (error) {
+//             dispatch(setError(error));
+//         }
+//     }
+// }
+
 
 export default authSlice.reducer;

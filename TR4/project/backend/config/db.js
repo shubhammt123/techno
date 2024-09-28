@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 
 const connectDb = async ()=>{
     try {
-        const connection = await mongoose.connect("mongodb://localhost:27017/technoTr4Project");
+        const connection = await mongoose.connect("mongodb://localhost:27017/technoprojectTr4");
         console.log("Database is connected");
     } catch (error) {
-        console.log(error);
+        console.log(error)
     }
 }
 

@@ -1,75 +1,82 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios';
 import React, { useEffect } from 'react'
-import { useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
 import { z } from 'zod';
-import { login, signup } from '../redux/slices/authSlice';
-import { useNavigate } from 'react-router-dom';
+import { login } from '../redux/slices/authSlice';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const Login = () => {
     const validationSchema = z.object({
-        "email" : z.string().min(1,"Email is required"),
-        "password" : z.string().min(1,"Password is required"),
-        
-    })
-    const { register , handleSubmit , formState : {errors} } = useForm({
-        resolver : zodResolver(validationSchema)
+        email : z.string().min(1,"Email is required").email("Invalid Email"),
+        password : z.string().min(1, "Password is required")
     });
 
-    const { isAuth } = useSelector((state)=>state.auth);
-
-
-    
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const { isLoading , error , isAuth } = useSelector((state)=>state.auth);
 
-    const onSubmit = (data)=>{
+
+    const { register , handleSubmit , formState : {errors} } = useForm({
+        resolver : zodResolver(validationSchema)
+    });
+    const onSubmit = async (data)=>{
         dispatch(login(data));
-        
-    };
+    }
+
+    useEffect(()=>{
+        if(error){
+            alert(error.message)
+        }
+    },[error]);
 
     useEffect(()=>{
       if(isAuth){
-        navigate("/");
+        navigate("/")
       }
     },[isAuth]);
-    
-    const handleGoogleLogin = ()=>{
-        window.location.href = "http://localhost:5000/api/auth/google";
-    }
-  return (
-    <div className='w-4/5 h-4/5 flex justify-center items-center bg-white shadow-2xl rounded'>
-        <div className='w-1/2'>
-            <img src="https://static.vecteezy.com/system/resources/previews/003/689/228/original/online-registration-or-sign-up-login-for-account-on-smartphone-app-user-interface-with-secure-password-mobile-application-for-ui-web-banner-access-cartoon-people-illustration-vector.jpg" alt="" className='w-full'/>
-        </div>
-        <div className='w-1/2 flex flex-col gap-8'>
-        <h1 className='text-3xl text-blue-500 w-[90%] font-semibold text-center'>Welcome Back ! Log-In</h1>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div className=''>
-                    
-                    <div>
-                        <label className='text-blue-500 font-medium block'>Email</label>
-                        <input type="email" className={`p-2 border   w-[90%] my-2 rounded shadow-xl ${errors.email ? "border-red-500 outline-none" : "border-gray-500 outline-blue-500"}`} {...register("email")} />
-                        {errors.email && (
+
+    const handleGoogleLogin = () => {
+        window.location.href = 'http://localhost:5000/api/auth/google';  
+      };
+    return (
+        <div className='h-screen w-screen flex justify-center items-center bg-[#e4e4e4]'>
+        <div className='flex w-1/3 h-[90%] justify-between items-center bg-white shadow-2xl'>
+            
+            <div className='w-full h-full flex flex-col justify-start items-center'>
+            <h1 className='text-3xl w-full font-semibold text-center h-1/4 flex items-center justify-center'>Welcome Back !</h1>
+                <form onSubmit={handleSubmit(onSubmit)} className='w-full flex flex-col items-center'>
+                    <div className='w-full flex flex-col justify-center items-center'>
+                    <div className='w-full flex flex-col items-center'>
+                    <label className='text-gray-500 font-medium'>Email</label>
+                    <input type="email" className={`block p-2 border outline-none w-4/5 my-2 ${errors.email ? 'border-red-500' : "border-gray-700"}`} {...register("email")}  />
+                    {errors.email && (
                             <p className='text-xs text-red-500'>{errors.email.message}</p>
                         ) }
                     </div>
-                    <div>
-                        <label className='text-blue-500 font-medium block'>Password</label>
-                        <input type="password" className={`p-2 border w-[90%] my-2 rounded shadow-xl ${errors.password ? "border-red-500 outline-none" : "border-gray-500 outline-blue-500"}`} {...register("password")} />
-                        {errors.password && (
+                    <div className='w-full flex flex-col items-center'>
+                    <label className='text-gray-500 font-medium '>Password</label>
+                    <input type="password" className={`block p-2 border border-gray-700 outline-none w-4/5 my-2 ${errors.password ? 'border-red-500' : "border-gray-700"}`} {...register("password")} />
+                    {errors.password && (
                             <p className='text-xs text-red-500'>{errors.password.message}</p>
                         ) }
                     </div>
                     
+                    </div>
+                    <button className='p-2 w-4/5 my-4 font-medium text-gray-100 shadow bg-black active:bg-gray-800'>{isLoading ? "Loading..." : "Log-In"}</button>
+                </form>
+                <button className='p-2 w-4/5 my-2 font-medium text-gray-100 shadow bg-red-700 active:bg-red-800' onClick={handleGoogleLogin}>Log-In With Google</button>
+                <div className='mt-2 text-sm'>
+                    <p>Don't have an account? <Link to="/signup"><span className='text-blue-600 cursor-pointer hover:underline'>Create Now!</span></Link></p>
                 </div>
-                <button className='bg-blue-500 my-5 text-white font-medium p-2 w-[90%] shadow-xl rounded active:bg-blue-600'>Log-In</button>
-            </form>
-            <button className='bg-red-700 my-5 text-white font-medium p-2 w-[90%] shadow-xl rounded active:bg-red-600' onClick={handleGoogleLogin}>Log-In With Google</button>
+            </div>
         </div>
-    </div>
-  )
+        </div>
+    )
 }
 
-export default Login
+export default Login;
+

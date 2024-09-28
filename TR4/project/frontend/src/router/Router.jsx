@@ -1,100 +1,105 @@
 import React from 'react'
 import { createBrowserRouter, Navigate } from 'react-router-dom'
-import Singup from '../components/Singup'
+import Signup from '../components/Signup'
 import Login from '../components/Login'
 import Home from '../components/Home'
-import Cart from '../components/Cart'
-import UnProtected from '../components/UnProtected'
-import Protected from '../components/Protected'
-import Order from '../components/Order'
-import MyOrder from '../components/MyOrder'
-import Dashboard from '../components/Dashboard'
-import AdminUser from '../components/AdminUser'
-import AdminProduct from '../components/AdminProduct'
-import AdminOrder from '../components/AdminOrder'
 import Profile from '../components/Profile'
-import OpenROutes from '../components/OpenROutes'
+import Cart from '../components/Cart'
+import Unprotected from '../components/Unprotected'
+import AdminPrivate from '../components/AdminPrivate'
+import Dashbaord from '../components/Dashbaord'
+import AdminProduct from '../components/AdminProduct'
+import AdminUser from '../components/AdminUser'
+import AdminOrder from '../components/AdminOrder'
+import UserPrivate from '../components/UserPrivate'
+import MyOrder from '../components/MyOrder'
+import Order from '../components/Order'
+import UserAdminPrivate from '../components/UserAdminPrivate'
+import Private from '../components/Private'
+import OpenRoute from '../components/OpenRoute'
 import GoogleAuth from '../components/GoogleAuth'
 
 const Router = createBrowserRouter([
     {
-        element : <OpenROutes />,
-        children :  [{
+        element : <OpenRoute />,
+        children : [
+            {
             path : "/",
-            element  : <Home />
+            element : <Home />
         },
         {
             path : "/cart",
-            element  : <Cart />
+            element : <Cart />
         },
         {
-            path : "/googleauth",
-            element  : <GoogleAuth />
+            path : "/googleAuth",
+            element : <GoogleAuth />
         },
     ]
     },
     {
-        element :  <UnProtected />,
+        element : <Unprotected />,
         children : [
             {
                 path : "/login",
                 element : <Login />
             },
             {
-                path : "/Signup",
-                element : <Singup />
-            },
-        ]
-    },
-    {
-        element : <Protected allowedRole = {["User"]} />,
-        children : [
-            {
-                path : "/order",
-                element : <Order />
-            },
-            {
-                path : "/myorder",
-                element : <MyOrder />
+                path : "/signup",
+                element : <Signup />
             }
         ]
     },
     {
-        element : <Protected allowedRole = {["Admin"]} />,
+        element : <Private allowedRole = {["Admin"]} />,
         children : [
             {
                 path : "/dashboard",
-                element : <Dashboard />
+                element : <Dashbaord />
             },
             {
-                path : "/adminuser",
-                element : <AdminUser />
-            },
-            {
-                path : "/adminproduct",
+                path : "/adminProduct",
                 element : <AdminProduct />
             },
             {
-                path : "/adminorder",
+                path : "/adminUser",
+                element : <AdminUser />
+            },
+            {
+                path : "/adminOrder",
                 element : <AdminOrder />
             },
         ]
     },
     {
-        element : <Protected allowedRole = {["User","Admin"]} />,
+        element : <Private allowedRole={["User"]} />,
         children : [
             {
-                path : "/profile",
+                path : "/myorder",
+                element : <MyOrder />
+            },
+            {
+                path : "/order",
+                element : <Order />
+            }
+        ]
+    },
+    {
+        element : <Private allowedRole={["Admin" , "User"]}  />,
+        children : [
+            {
+                path  : "/profile",
                 element : <Profile />
             }
         ]
     }
 ])
 
-export default Router
 
-// /login , /signup --- anyone but not logged-in user
-// /cart , / --- anyone
-// /profile --- both admin and user
-// /dashboard , /adminuser , /adminproduct , /adminorder --- Admin
-// /order , /myorders --- User
+// /login , /signup --- can access without login , but if logged in then not accessible
+// /profile  --- can accessible by user and admin
+// /dashboard , /adminProduct , /adminUser , /adminOrder --- admin
+// /myOrders , /order  --- user
+// / , /cart   ---- anyone
+
+export default Router

@@ -9,36 +9,38 @@ passport.use(new GoogleStrategy({
     callbackURL : process.env.GOOGLE_CALLBACK_URL
 },
 async (accessToken , refreshToken , profile , done)=>{
-try {
-    let user = await User.findOne({googleId : profile.id});
-    if(user){
-        return done(null,user);
-    }
+    try {
+        let user = await User.findOne({googleId : profile.id});
+        if(user){
+            return done(null,user);
+        }
 
-    user = new User({
-        googleId : profile.id,
-        name : profile.displayName || "Google Name",
-        email : profile.emails[0].value,
-        password : "",
-        phoneNumber : ""
-    });
-    await user.save();
-    done(null,user);
-} catch (error) {
-    done(error , false)
+        user = new User({
+            googleId : profile.id,
+            name :  profile.displayName || "Google User",
+            email : profile.emails[0].value,
+            password  : "",
+            phoneNumber : ""
+        })
+
+        await user.save();
+        done(null,user);
+    } catch (error) {
+        done(error,false)
+    }
 }
-}
-));
+))
 
 passport.serializeUser((user,done)=>{
-    done(null,user.id);
-})
+    done(null,user.id)
+});
 
 passport.deserializeUser(async (id,done)=>{
     try {
         const user = await User.findById(id);
         done(null,user)
     } catch (error) {
-        done(error,null);
+        done(error,null)
     }
-})
+});
+

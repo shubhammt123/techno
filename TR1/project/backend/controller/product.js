@@ -21,3 +21,38 @@ exports.createProduct = async (req,res,next)=>{
         next(error);
     }
 };
+exports.updateProduct = async (req,res,next)=>{
+    const { id } = req.params;
+    console.log(req.body)
+    try {
+        const isExisting = await Product.findById(id);
+        if(!isExisting){
+            const error = new Error("Product not found");
+            error.name = "NotFound";
+            error.statusCode = 404;
+            throw error;
+        }
+        const updateProduct = await Product.findByIdAndUpdate(id,req.body,{new : true});
+        res.status(201).send({message : "Product Updated" , data : updateProduct});
+    } catch (error) {
+        next(error);
+    }
+};
+exports.updateProductWithImage = async (req,res,next)=>{
+    const { id } = req.params;
+    const productUrl = req.file.path;
+    const reqBody = { ...req.body , productUrl : productUrl };
+    try {
+        const isExisting = await Product.findById(id);
+        if(!isExisting){
+            const error = new Error("Product not found");
+            error.name = "NotFound";
+            error.statusCode = 404;
+            throw error;
+        }
+        const updateProduct = await Product.findByIdAndUpdate(id,reqBody,{new : true});
+        res.status(201).send({message : "Product Updated" , data : updateProduct});
+    } catch (error) {
+        next(error);
+    }
+};

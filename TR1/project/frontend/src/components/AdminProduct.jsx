@@ -29,7 +29,7 @@ const AdminProduct = () => {
     { field: 'action', headerName: 'Action', width: 100 , renderCell : (params)=>{
       return (
         <div className='flex justify-center items-center h-full cursor-pointer  '>
-          <div className='w-1/2 h-4/5 flex justify-center items-center  hover:bg-black hover:text-white rounded-full' onClick={()=>{handleUpdateClick(params.row)}}>
+          <div className='w-1/2 h-4/5 flex justify-center items-center   hover:bg-black hover:text-white rounded-full' onClick={()=>{handleUpdateClick(params.row)}}>
           <FaEdit className='text-sm' />
           </div>
           
