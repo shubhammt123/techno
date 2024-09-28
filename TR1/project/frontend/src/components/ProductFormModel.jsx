@@ -34,9 +34,7 @@ const ProductFormModel = ({open,setOpen , row , isUpdate}) => {
     },[isProductAdded]);
 
     useEffect(()=>{
-      if(row){
         reset(row)
-      }
     },[row,reset]);
   return (
     <div>

@@ -10,14 +10,21 @@ const paginationModel = { page: 0, pageSize: 5 };
 export default function DataTable({columns}) {
   const dispatch = useDispatch();
 
-  const { products } = useSelector((state)=>state.product);
+  const { products , isProductAdded } = useSelector((state)=>state.product);
 
   React.useEffect(()=>{
     dispatch(getAllProduct());
   },[]);
+
+  React.useEffect(()=>{
+    if(isProductAdded){
+      dispatch(getAllProduct());
+    }
+  },[isProductAdded]);
   return (
     <Paper sx={{ height: 400, width: '100%' }}>
       <DataGrid
+      // getRowHeight={() => 'auto'}
         rows={products}
         columns={columns}
         initialState={{ pagination: { paginationModel } }}
