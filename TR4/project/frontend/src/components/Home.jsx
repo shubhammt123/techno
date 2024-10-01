@@ -20,19 +20,19 @@ const Home = () => {
   }
   return (
     <div>
-      {/* <Carousel />
-      <Category /> */}
+      <Carousel />
+      <Category />
       <div className='w-[90%] mx-auto'>
       <div className='grid grid-cols-4 gap-2 font-sans'>
         {products.map((item , i)=>(
-          <div key={i} className='mb-4'>
+          <div key={i} className='mb-4 bg-white shadow-xl hover:transform hover:scale-[1.01] ease-in-out duration-300'>
           <img src={`http://localhost:5000/${item.productUrl}`} alt="" />
-          <div className='flex justify-between items-center'>
+          <div className='flex justify-between items-center p-2 px-3'>
             <div className='mt-5'>
-            <p className=' text-sm'>{item.name}</p>
+            <p className='text-sm truncate w-28'>{item.name}</p>
             <p className='text-sm'>{item.price}</p>
             </div>
-            <div className='mt-5'>
+            <div className='mt-5 w-20'>
               <button className='p-2 border border-black text-xs' onClick={()=>{handleAddCart(item)}}>Add to cart</button>
             </div>
           </div>

@@ -40,8 +40,13 @@ const Navbar = () => {
                         role === "User" ?
                             <div className='flex gap-5 text-lg font-normal'>
                                 <Link to="/cart"><div className='flex flex-col items-center hover:transform hover:scale-105'>
+                                <Badge badgeContent={cartItem.length} color="error">
+                                    <div  className='flex flex-col items-center'>
                                     <FaShoppingCart />
                                     <p className='text-xs'>Cart</p>
+                                    </div>
+                                    
+                                    </Badge>
                                 </div></Link>
                                 <Link to="/myorder"><div className='flex flex-col items-center hover:transform hover:scale-105'>
                                 <PiShoppingBagFill />

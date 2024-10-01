@@ -22,8 +22,8 @@ const handleCartAdd = (data)=>{
 }
   return (
     <div>
-      {/* <Carousel />
-      <Category /> */}
+      <Carousel />
+      <Category />
       <div className='w-[90%] mx-auto'>
       <div className='grid grid-cols-4 gap-2 font-sans'>
         {products.map((item , i)=>(

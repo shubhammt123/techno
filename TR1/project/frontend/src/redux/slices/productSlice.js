@@ -27,7 +27,12 @@ export const getAllProduct = createAsyncThunk(
     'product/getAllProduct',
     async (_ , {rejectWithValue})=>{
         try {
-            const response = await axios.get("http://localhost:5000/api/product");
+            const token = localStorage.getItem("token");
+            const response = await axios.get("http://localhost:5000/api/product",{
+                headers : {
+                    "Authorization" : `Bearer ${token}`
+                }
+            });
             const updateProducts = response.data.data.map((item,i)=>{
                 return {...item , id : i+1}
             })

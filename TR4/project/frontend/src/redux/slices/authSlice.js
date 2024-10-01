@@ -41,7 +41,8 @@ const initialState = {
     error : null,
     user : null,
     isAuth : localStorage.getItem("token") ? true : false,
-    role : getRole()
+    role : getRole(),
+    token : localStorage.getItem("token")
 }
 
 const authSlice = createSlice({
@@ -50,7 +51,9 @@ const authSlice = createSlice({
     reducers : {
         logout : (state)=>{
             state.isAuth = false;
-            state.role = null
+            state.role = null;
+            state.token = null;
+            localStorage.removeItem("token");
         },
         loginWithGoogle : (state,action)=>{
             const { token , role , user } = action.payload;

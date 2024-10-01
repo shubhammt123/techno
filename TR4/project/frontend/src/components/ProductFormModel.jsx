@@ -9,8 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addProduct, updateProduct, updateProductWithImage } from '../redux/slices/productSlice';
 import { FaEdit } from "react-icons/fa";
 
-const ProductFormModel = ({open,setOpen , isUpdate , row}) => {
-  const [editImage , setEditImage] = useState(false);
+const ProductFormModel = ({open,setOpen , isUpdate , row , editImage , setEditImage}) => {
+  
     const { register , handleSubmit , reset } = useForm();
 
     const { isProductAdded } = useSelector((state)=>state.product);

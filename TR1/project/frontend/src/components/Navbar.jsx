@@ -97,8 +97,13 @@ const Navbar = () => {
                         (
                             <div className='flex gap-5 text-lg font-normal'>
                                 <Link to="/cart"><div className='flex flex-col items-center hover:transform hover:scale-105'>
+                                <Badge badgeContent={cartItem.length || 0} color="error">
+                                    <div flex flex-col items-center>
                                     <FaShoppingCart />
                                     <p className='text-xs'>Cart</p>
+                                    </div>
+                                    
+                                    </Badge>
                                 </div></Link>
                                 <Link to="/login"><div className='flex flex-col items-center hover:transform hover:scale-105'><RiLoginBoxFill />
                                     <p className='text-xs'>

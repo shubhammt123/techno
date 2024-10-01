@@ -2,15 +2,17 @@ import React, { useState } from 'react'
 import DataTable from './DataTable'
 import ProductFormModel from './ProductFormModel'
 import { FaEdit } from "react-icons/fa";
-
-
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllProduct } from '../redux/slices/productSlice';
 
 
 const AdminProduct = () => {
   const [open, setOpen] = useState(false);
   const [isUpdate , setIsUpdate] = useState(false);
   const [rowData , setRowData] = useState(null);
+  const [editImage , setEditImage] = useState(false);
   const handleUpdateModel = (data)=>{
+    setEditImage(false)
     setRowData(data);
     setOpen(true);
     setIsUpdate(true);
@@ -22,24 +24,39 @@ const AdminProduct = () => {
     decription : "",
     category : ""
   }
+
+  const dispatch = useDispatch();
+
+  const { products ,   isProductAdded } = useSelector((state)=>state.product);
+
+
+  React.useEffect(()=>{
+    dispatch(getAllProduct());
+  },[]);
+
+  React.useEffect(()=>{
+    if(isProductAdded){
+      dispatch(getAllProduct());
+    }
+  },[isProductAdded])
   const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'productUrl', headerName: 'Product Image', width: 190 , renderCell : (params)=>{
+    { field: 'id', headerName: 'ID', width: 90 },
+    { field: 'productUrl', headerName: 'Product Image', width: 240 , renderCell : (params)=>{
       return (
         <div className='flex  items-center h-full'><img src={`http://localhost:5000/${params.row.productUrl}`} alt="" className='w-8 h-8 rounded-full' /></div>
       )
     } },
-    { field: 'name', headerName: 'Product name', width: 200 },
-    { field: 'category', headerName: 'Category', width: 190 },
+    { field: 'name', headerName: 'Product name', width: 300 },
+    { field: 'category', headerName: 'Category', width: 240 },
     {
       field: 'description',
       headerName: 'Description',
-      width: 290,
+      width: 390,
     },
-    { field: 'price', headerName: 'price', width: 150 },
-    { field: 'action', headerName: 'Action', width: 100 , renderCell : (params)=>{
+    { field: 'price', headerName: 'price', width: 200 },
+    { field: 'action', headerName: 'Action', width: 151 , renderCell : (params)=>{
       return (
-        <div className='flex justify-center items-center h-full cursor-pointer  '>
+        <div className='flex items-center h-full cursor-pointer  '>
           <div className='w-1/2 h-4/5 flex justify-center items-center hover:bg-black hover:text-white rounded-full' onClick={()=>{handleUpdateModel(params.row)}}>
           <FaEdit className='text-sm' />
           </div>
@@ -62,9 +79,9 @@ const AdminProduct = () => {
         </div>
       </div>
       <div className='m-4 p-4'>
-      <DataTable columns={columns} />
+      <DataTable columns={columns} data={products} />
       </div>
-      <ProductFormModel open={open}  setOpen={setOpen} isUpdate={isUpdate} row={rowData} />
+      <ProductFormModel open={open}  setOpen={setOpen} isUpdate={isUpdate} row={rowData} editImage={editImage} setEditImage={setEditImage} />
       
     </div>
   )
