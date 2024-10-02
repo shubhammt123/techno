@@ -24,12 +24,52 @@ const add = (x:number,y:number):number=>{
 
 console.log(add(2,5));
 
-interface Person {
-    firstName : string,
-    lastName :  string
+// interface Person {
+//     firstName : string,
+//     lastName :  string
+// }
+
+// let person:Person = {
+//     firstName : "shubham",
+//     lastName : "Jain",
+// }
+
+class Animal{
+    name : string
+
+    constructor(name:string){
+        this.name = name
+    }
+
+    move(number:number){
+        console.log(`${this.name} moved ${number} meter`)
+    }
 }
 
-let person:Person = {
-    firstName : "shubham",
-    lastName : "Jain",
+
+class Person{
+    public name : string;
+    private age : number
+
+    constructor(name:string , age:number){
+        this.name = name;
+        this.age = age
+    }
+
+    get getAge(){
+        return this.age
+    }
+
+    set updateAge(number:number){
+        this.age = number
+    }
 }
+
+const person1 = new Person("shubham",100);
+
+console.log(person1.getAge);
+
+person1.updateAge =  200
+
+
+
