@@ -3,7 +3,7 @@
     "name": "TR4",
     "slug": "TR4",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
