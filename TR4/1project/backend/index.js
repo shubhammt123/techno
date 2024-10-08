@@ -34,7 +34,7 @@ app.use("/uploads",express.static(path.join(__dirname , "uploads")))
 
 app.use("/auth" , userRoutes);
 app.use("/api/auth",authRoutes);
-app.use("/api",productRoutes);
+app.use("/api",productRoutes)
 
 app.get("/",(req,res)=>{
     res.send("Hello Techno")
