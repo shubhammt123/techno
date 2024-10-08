@@ -36,6 +36,10 @@ app.use("/auth" , userRoutes);
 app.use("/api/auth",authRoutes);
 app.use("/api",productRoutes);
 
+app.get("/",(req,res)=>{
+    res.send("Hello Techno")
+})
+
 app.post("/create-checkout-session",async (req,res)=>{
     const { products , userId , customerName , customerContactNumber , address , pinCode}  = req.body;
     console.log(req.body)
