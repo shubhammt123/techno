@@ -26,7 +26,7 @@ const Cart = () => {
     console.log(orderDetails)
     try {
       const stripe = await loadStripe('pk_test_51PQ23NKhZAmovhQkSKdZwZLJ8t4f7QKqZZ9BLNfT86xtaPAEEp5ICEWuKa1JpEvTXK7lxuHb4sjUk2wZ6FAU0uOX00KiQ8o3k8');
-      const response = await axios.post(`http://localhost:5000/create-checkout-session`, orderDetails);
+      const response = await axios.post(`https://techno-navy.vercel.app/create-checkout-session`, orderDetails);
       const result = stripe.redirectToCheckout({ sessionId: response.data.id });
       if (result.error) {
         console.log(result.error);
@@ -47,7 +47,7 @@ const Cart = () => {
               <div key={index} className="flex justify-between items-center p-2 border-b">
                
                 <img
-                  src={`http://localhost:5000/${item.productUrl}`}
+                  src={`https://techno-navy.vercel.app/${item.productUrl}`}
                   alt={item.name}
                   className="w-16 h-16 object-cover mr-4"
                 />

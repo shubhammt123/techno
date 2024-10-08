@@ -6,7 +6,7 @@ export const addAdmin = createAsyncThunk(
     'auth/addAdmin',
     async (data , {rejectWithValue})=>{
         try {
-            const response = await axios.post("http://localhost:5000/auth/signup",data);
+            const response = await axios.post("https://techno-navy.vercel.app/auth/signup",data);
         return response;
         } catch (error) {
             return rejectWithValue(error);
@@ -17,7 +17,7 @@ export const updateUser = createAsyncThunk(
     'product/updateUser',
     async (data , {rejectWithValue})=>{
         try {
-            const response = await axios.put(`http://localhost:5000/auth/user/${data._id}`,data);
+            const response = await axios.put(`https://techno-navy.vercel.app/auth/user/${data._id}`,data);
         return response;
         } catch (error) {
             return rejectWithValue(error);
@@ -32,7 +32,7 @@ export const getAllUser = createAsyncThunk(
         const token = getState().auth.token
         console.log(token)
         try {
-            const response = await axios.get("http://localhost:5000/auth/getAllUser",{
+            const response = await axios.get("https://techno-navy.vercel.app/auth/getAllUser",{
                 headers :  {
                     "Authorization" : `Bearer ${token}`
                 }

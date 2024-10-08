@@ -26,7 +26,7 @@ const Home = () => {
       <div className='grid grid-cols-4 gap-2 font-sans'>
         {products.map((item , i)=>(
           <div key={i} className='mb-4 bg-white shadow-xl hover:transform hover:scale-[1.01] ease-in-out duration-300'>
-          <img src={`http://localhost:5000/${item.productUrl}`} alt="" />
+          <img src={`https://techno-navy.vercel.app/${item.productUrl}`} alt="" />
           <div className='flex justify-between items-center p-2 px-3'>
             <div className='mt-5'>
             <p className='text-sm truncate w-28'>{item.name}</p>

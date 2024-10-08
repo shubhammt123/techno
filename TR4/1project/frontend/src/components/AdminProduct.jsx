@@ -43,7 +43,7 @@ const AdminProduct = () => {
     { field: 'id', headerName: 'ID', width: 90 },
     { field: 'productUrl', headerName: 'Product Image', width: 240 , renderCell : (params)=>{
       return (
-        <div className='flex  items-center h-full'><img src={`http://localhost:5000/${params.row.productUrl}`} alt="" className='w-8 h-8 rounded-full' /></div>
+        <div className='flex  items-center h-full'><img src={`https://techno-navy.vercel.app/${params.row.productUrl}`} alt="" className='w-8 h-8 rounded-full' /></div>
       )
     } },
     { field: 'name', headerName: 'Product name', width: 300 },

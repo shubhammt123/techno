@@ -6,7 +6,7 @@ export const signup = createAsyncThunk(
     'auth/signup',
     async (data , {rejectWithValue})=>{
         try {
-            const response = await axios.post("http://localhost:5000/auth/signup",data);
+            const response = await axios.post("https://techno-navy.vercel.app/auth/signup",data);
         return response;
         } catch (error) {
             return rejectWithValue(error);
@@ -17,7 +17,7 @@ export const login = createAsyncThunk(
     'auth/login',
     async (data , {rejectWithValue})=>{
         try {
-            const response = await axios.post("http://localhost:5000/auth/login",data);
+            const response = await axios.post("https://techno-navy.vercel.app/auth/login",data);
             console.log(response.data);
             localStorage.setItem("token" , response.data.token);
         return response;
