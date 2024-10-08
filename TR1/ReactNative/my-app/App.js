@@ -1,4 +1,4 @@
-
+import 'react-native-gesture-handler';
 import { ActivityIndicator, Alert, Button, Dimensions, Image, ImageBackground, Modal, Pressable, ScrollView, StatusBar, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import Vector  from "./assets/splash.png"
 import { useState } from "react";
@@ -6,6 +6,17 @@ import Box from './components/Box';
 import { Platform } from 'react-native';
 import List from './components/List';
 import Inputs from './components/Inputs';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Home from './components/Home';
+import Login from './components/Login';
+import Singup from './components/Singup';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import FontAwesome from '@expo/vector-icons/FontAwesome'
+import AdminNavigation from './navigations/AdminNavigation';
+import AuthNavigation from './navigations/AuthNavigation';
+import AppNavigation from './navigations/AppNavigation';
 
 
 
@@ -14,10 +25,33 @@ export default function App() {
   const [open , setOpen] = useState(false);
   const windowWidth = useWindowDimensions();
   const windowHeight = useWindowDimensions();
+  const Stack = createNativeStackNavigator();
+  const Drawer = createDrawerNavigator();
+  const Tab = createBottomTabNavigator();
   return (
     <View style={[styles.container ]}>
+      <NavigationContainer>
+        {/* <Stack.Navigator>
+          <Stack.Screen name='Home' component={Home} />
+          <Stack.Screen name='Login' component={Login} />
+          <Stack.Screen name='Signup' component={Singup} />
+        </Stack.Navigator> */}
+        {/* <Drawer.Navigator>
+          <Drawer.Screen name='Home' component={Home} />
+          <Drawer.Screen name='Login' component={Login} />
+          <Drawer.Screen name='Signup' component={Singup} />
+        </Drawer.Navigator> */}
+        {/* <Tab.Navigator>
+          <Tab.Screen name='Home' component={Home} options={{tabBarIcon : ()=><FontAwesome name="home" size={24} color="black" />}} />
+          <Tab.Screen name='Login' component={Login} />
+          <Tab.Screen name='Signup' component={Singup} />
+        </Tab.Navigator> */}
+        <AppNavigation />
+      </NavigationContainer>
       {/* <List /> */}
-      <Inputs />
+      {/* <Inputs /> */}
+      
+      {/* <Profile /> */}
       {/* <View style={[styles.card,{width : windowWidth > 600 ? 600 : 400 , 
     height : windowHeight > 600 ? 600 : 400,}]}>
         <Text style={[styles.cardText , styles.text]}>Hello Techno</Text>
@@ -190,13 +224,11 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'orange',
-    borderWidth : 4,
-    borderColor : "red",
+    backgroundColor: '#fff',
     flex : 1,
-    justifyContent : "center",
+
     // flexDirection : "column-reverse",
-    alignItems : "center"
+    
     
   },
   card : {
