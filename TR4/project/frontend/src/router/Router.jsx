@@ -18,6 +18,8 @@ import UserAdminPrivate from '../components/UserAdminPrivate'
 import Private from '../components/Private'
 import OpenRoute from '../components/OpenRoute'
 import GoogleAuth from '../components/GoogleAuth'
+import SuccessPayment from '../components/SuccessPayment'
+import CancelPayment from '../components/CancelPayment'
 
 const Router = createBrowserRouter([
     {
@@ -34,6 +36,14 @@ const Router = createBrowserRouter([
         {
             path : "/googleAuth",
             element : <GoogleAuth />
+        },
+        {
+            path : "/paymentsuccess",
+            element  : <SuccessPayment />
+        },
+        {
+            path : "/cancelPayment",
+            element  : <CancelPayment />
         },
     ]
     },

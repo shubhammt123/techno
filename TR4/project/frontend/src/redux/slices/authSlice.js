@@ -36,10 +36,19 @@ const getRole = ()=>{
     return null
 }
 
+const getUser = ()=>{
+    const token = localStorage.getItem("token");
+    if(token){
+        const decodedToken = jwtDecode(token);
+        return decodedToken
+    }
+    return null
+}
+
 const initialState = {
     isLoading : false,
     error : null,
-    user : null,
+    user : getUser(),
     isAuth : localStorage.getItem("token") ? true : false,
     role : getRole(),
     token : localStorage.getItem("token")
