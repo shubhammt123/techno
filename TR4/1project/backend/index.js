@@ -7,11 +7,12 @@ const authRoutes = require("./router/auth");
 const productRoutes = require("./router/product");
 const passport = require("passport");
 const session = require("express-session");
+const Order = require("./model/order");
 const path = require("path");
-const Order = require("./model/order")
 require("dotenv").config();
 require("./config/passport");
-const stripe = require("stripe")("sk_test_51PQ23NKhZAmovhQkXOdFXfAunfNMJE8uHnXbbfBGksOMirucY7PwsikhvEvYaynFx5l3xvZvH5IYJrXPOuvbrHlb00Cge3ywXo");
+const stripe = require("stripe")("sk_test_51PQ23NKhZAmovhQkXOdFXfAunfNMJE8uHnXbbfBGksOMirucY7PwsikhvEvYaynFx5l3xvZvH5IYJrXPOuvbrHlb00Cge3ywXo")
+
 
 const app = express();
 
