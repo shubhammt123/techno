@@ -23,7 +23,6 @@ const Cart = () => {
       pinCode: formData.get('pinCode'),
       products: cartItem,
     };
-    console.log(orderDetails)
     try {
       const stripe = await loadStripe('pk_test_51PQ23NKhZAmovhQkSKdZwZLJ8t4f7QKqZZ9BLNfT86xtaPAEEp5ICEWuKa1JpEvTXK7lxuHb4sjUk2wZ6FAU0uOX00KiQ8o3k8');
       const response = await axios.post(`http://localhost:5000/create-checkout-session`, orderDetails);
