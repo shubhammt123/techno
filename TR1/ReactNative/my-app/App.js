@@ -17,6 +17,8 @@ import FontAwesome from '@expo/vector-icons/FontAwesome'
 import AdminNavigation from './navigations/AdminNavigation';
 import AuthNavigation from './navigations/AuthNavigation';
 import AppNavigation from './navigations/AppNavigation';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 
 
@@ -30,6 +32,7 @@ export default function App() {
   const Tab = createBottomTabNavigator();
   return (
     <View style={[styles.container ]}>
+      <Provider store={store}>
       <NavigationContainer>
         {/* <Stack.Navigator>
           <Stack.Screen name='Home' component={Home} />
@@ -48,6 +51,7 @@ export default function App() {
         </Tab.Navigator> */}
         <AppNavigation />
       </NavigationContainer>
+      </Provider>
       {/* <List /> */}
       {/* <Inputs /> */}
       
